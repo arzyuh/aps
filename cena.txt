@@ -1,0 +1,43 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args){
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+        int [] casa = new int[n];
+        int [] pari = new int[n];
+        for(int i = 0; i < n; i++)
+        {
+            casa[i] = input.nextInt();
+            pari[i] = input.nextInt();
+        }
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = i + 1; j < n; j++)
+            {
+                if(casa[i] > casa[j])
+                {
+                    int tempCasa = casa[i];
+                    casa[i] = casa[j];
+                    casa[j] = tempCasa;
+                    int tempPari = pari[i];
+                    pari[i] = pari[j];
+                    pari[j] = tempPari;
+                }
+            }
+        }
+        int vreme = 40;
+        int zbir = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(casa[i] <= vreme)
+            {
+                vreme -= casa[i];
+                zbir += pari[i];
+            }
+            else
+            {
+                zbir += (double)vreme / casa[i] * pari[i];
+                vreme = 0;
+            }
+        }
+    }

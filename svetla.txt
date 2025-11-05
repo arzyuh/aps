@@ -1,0 +1,54 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main{
+    public static int NajdiMinSvetulki(int [] niza,int n,int m){
+        Arrays.sort(niza);
+        int brojacSvetulki=0;
+        int i=0;
+        while(i<n){//gi izminuvame site svetulki
+            brojacSvetulki++;//broj na svetulki
+            int lokazijaSvetulki=niza[i]+2;//postavivame lokacija na momentalnata svetukla plus 2
+            while(i<n && niza[i]<=lokazijaSvetulki){//dodeka i e pomalo on
+                i++;
+            }
+            lokazijaSvetulki=niza[i-1]+2;
+            while(i<n && niza[i]<=lokazijaSvetulki){//dodeka i e pomalo on
+                i++;
+            }
+        }
+return  brojacSvetulki;
+
+    }
+    public static void main(String []args){
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();//mesta kaj sto moze da se postavat svetulki
+        int m=sc.nextInt();//dolzina na ulicata(vkupen broj polinja)
+        int [] niza=new int[n];
+        for(int i=0;i<n;i++){
+            niza[i]=sc.nextInt();//citanje na mozni pozicii za postavuvanje na svetilkite
+        }
+        System.out.println(NajdiMinSvetulki(niza,n,m));
+    }
+}
+
+/*
+3 10
+3 8 9
+
+i=0, niza[i]=3
+stavame prva svetukla taa osvetluva 1..5
+tuka imame sa lokacija niza[i]+2=3+2=5
+trojkata osvetluva do pozicija 5
+so vnatresniot while gi pominuvame site pozicii do 5
+
+i=1, niza[i]=8 nadvor od osvetlnieot del na 3
+poslednata pokriena pozicija e niza[i-1]=3
+
+lokacija =niza[i-1]+2//3+2=5
+
+i=1
+niza[1]=8
+osvetluvanje od 6 do 10
+dve svetilki pokriva a toa se 8 i 9
+ */

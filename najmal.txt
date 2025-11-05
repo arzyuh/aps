@@ -1,0 +1,49 @@
+2. Најди ја најдолгата опаѓачка секвенца во една низа.
+Броевите во секвенцата не мора да се наоѓаат на последователни
+индекси во низата.
+
+Input	                      Result
+8                               1
+1 2 3 4 5 6 7 8
+
+Input	               	      Result
+14
+1 2 2 3 3 4 5 4 3 3 2 2 1 1     5
+Input
+6			     Result
+0 -10 -20 -30 -50 0             5
+ */
+
+
+public class Main{
+    public static int NajdolgaOpagjackaSekvenca(int [] niza){
+       if(niza.length==0){
+           return 0;
+       }
+       int []b=new int[niza.length];
+       int najdolga=1;
+        for(int i=0;i<niza.length;i++){
+            b[i]=1;
+        }
+        for(int i=1;i<niza.length;i++){
+            for(int j=0;j<i;j++){
+                if(niza[i]<niza[j]){
+                    b[i]=Math.max(b[i],b[j]+1);
+
+                }
+            }
+            najdolga=Math.max(najdolga,b[i]);
+        }
+        return najdolga;
+    }
+    public static void main(String []args){
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();//mesta kaj sto moze da se postavat svetulki
+
+        int [] niza=new int[n];
+        for(int i=0;i<n;i++){
+            niza[i]=sc.nextInt();//citanje na mozni pozicii za postavuvanje na svetilkite
+        }
+        System.out.println(NajdolgaOpagjackaSekvenca(niza));
+    }
+}
