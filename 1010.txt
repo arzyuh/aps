@@ -1,0 +1,31 @@
+import java.util.Scanner;
+public class Main {
+    static int binarystring(Character [] arr){
+        int counter=0;
+        for(int i=0;i<arr.length;i++){
+            int counter0=0,counter1=0;
+            for(int j=i;j<arr.length;j++){
+                if(arr[j]=='1'){
+                    counter1++;
+                }
+                else{
+                    counter0++;
+                }
+                if(counter1>counter0){
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+    public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+        int n=sc.nextInt();
+        String s=sc.next();
+        Character [] arr=new Character[n];
+        for(int i=0;i<n;i++){
+            arr[i]=s.charAt(i);
+        }
+        System.out.println(binarystring(arr));
+    }
+}
