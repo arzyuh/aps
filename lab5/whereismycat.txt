@@ -1,0 +1,55 @@
+Потребно е да се направи проверка на текст даден на англиски, дали е во ред напишан (односно дали правилно се напишани зборовите). За таа цел прво се даваат речник на зборови (односно листа на зборови кои ги содржи англискиот јазик), а потоа се дава текст. Како резултат треба да се испечатат сите зборови кои се неправилно напишани или ги нема во речникот.
+
+Влез: Прво се дава број N на поими кои ќе ги содржи речникот, а во наредните N реда се дадени зборовите кои ги содржи англискиот јазик. Потоа се дава еден текст, кој треба да се провери дали е правилно напишан.
+
+Излез: Се печати листа на зборови кои се неправилно напишани (секој во посебен ред). Доколку сите зборови се добро напишани се печати: Bravo.
+
+Забелешка: Треба да се игнорираат интерпункциски знаци како точка (.), запирка (,), извичник (!) и прашалник (?). Исто така да се внимава на голема и мала буква, односно иако зборовите во речникот се со мали букви, во реченица може да појават со голема почетна буква и притоа се сметаат за точни. Работете со хеш табела со отворени кофички. Сами треба да го одредите бројот на кофички и хеш функцијата.
+
+Input	
+4
+where
+is
+my
+cat
+Where is my cat?
+
+Result
+Bravo
+
+import java.util.Objects;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int N=Integer.parseInt(scanner.nextLine().trim());
+        OBHT<String,String> tabela=new OBHT<>(2*N);
+        int dobroNapisani=0;
+        for(int i=0;i<N;i++){
+            String zbor=scanner.nextLine().toLowerCase();
+            tabela.insert(zbor,zbor);
+        }
+            String  red=scanner.nextLine();
+        red=red.replace('.',' ');
+        red=red.replace(',',' ');
+        red=red.replace('!',' ');
+        red=red.replace('?',' ');
+        String[] zborovi =red.split("\\s+");
+        for(String zbor:zborovi){
+            if(!zbor.isEmpty()){
+                String zborMali=zbor.toLowerCase();
+                int index=tabela.search(zborMali);
+                if(index==-1){
+                    System.out.println(zbor);
+                    dobroNapisani++;
+                }
+            }
+
+    }
+        if(dobroNapisani==0){
+            System.out.println("Bravo");
+        }
+
+      }
+}

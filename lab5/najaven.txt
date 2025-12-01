@@ -1,0 +1,82 @@
+Потребно е да се симулира најава на еден систем. Притоа корисникот внесува корисничко име и лозинка. Доколку корисничкото име одговара со лозинката тогаш се печати Najaven, доколку не одговара се печати Nenajaven и на корисникот му се дава повторна шанса на корисникот да внесе корисничко име и лозинка. Во моментот кога корисникот ќе биде најавен престануваат обидите за најава.
+
+Влез: Прво се дава број N на кориснички имиња и лозинки кои ќе бидат внесени во системот. Во наредните N реда се дадени корисничките имиња и лозинки разделени со едно празно место.
+ Потоа се даваат редови со кориснички имиња и лозинки на корисници кои се обидувата да се најават (Пр. ana banana) За означување на крај на обидите во редицата се дава зборот KRAJ
+
+Излез: За секој од влезовите кои се обид за најава се печати Nenajaven се додека не дoбиеме Najaven или додека имаме обиди за најава.
+
+Пример. Влез: 3 ana banana pero zdero trpe trpi ana ana ana banana trpe trpi KRAJ
+
+Излез: Nenajaven Najaven
+
+Забелешка: Работете со хеш табела со затворени кофички. Самите решавате за големината на хеш табела, а хеш функцијата ви е дадена.
+
+Име на класа: Lozinki
+
+Input:
+3
+ana banana
+pero zdero
+trpe trpi
+ana ana
+ana bannana
+trpe trpe
+KRAJ
+Result:
+Nenajaven
+Nenajaven
+Nenajaven
+
+input:
+3
+ana banana
+pero zdero
+trpe trpi
+ana ana
+ana banana
+trpe trpi
+KRAJ
+output:
+Nenajaven
+Najaven
+
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int N=Integer.parseInt(scanner.nextLine());//Прво се дава број N на кориснички имиња и лозинки кои ќе бидат внесени во системот
+        CBHT<String,String> users=new CBHT<>(N);
+        for(int i=0;i<N;i++){// Во наредните N реда се дадени корисничките имиња и лозинки разделени со едно празно место
+            String [] input=scanner.nextLine().split(" ");
+            users.insert(input[0],input[1]); //Вметнување на парот во хаш табелата (корисничкмо име и лозинка)
+        }
+        while(true){
+            //Прочитуваме еден ред од влезот кориснички имиња и лозинки на корисници кои се обидувата да се најават (Пр. ana banana)
+        String [] login=scanner.nextLine().split(" ");
+        //Ако првиот збор е "KRAJ" преќини го циклусот
+            if(login[0].equals("KRAJ")){
+                break;
+            }
+            String username=login[0];
+            String password=login[1];
+
+
+            //element:("username","Oliver")
+            //succ->next node
+            //<MapEntry<String,String> entry= new MapEntry<>("username","Oliver");
+            //Го пребаруваме корисничкото име во ХЕШ табелата
+            SLLNode<MapEntry<String,String>> result=users.search(username);
+            if(result!=null && result.element.value.equals(password)){
+                System.out.println("Najaven");
+                break;
+            }
+            else{
+                System.out.println("Nenajaven");
+            }
+
+        }
+      }
+}
+

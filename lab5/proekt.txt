@@ -1,0 +1,73 @@
+import java.util.Objects;
+import java.util.Scanner;
+class Vraboten implements Comparable<Vraboten> {
+    private String ime;
+    private int godini;
+    public Vraboten(String ime,int godini){
+        this.ime=ime;
+        this.godini=godini;
+    }
+
+    @Override
+    public String toString() {
+        return "<" + ime + "," + godini +">";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vraboten vraboten = (Vraboten) o;
+        return godini == vraboten.godini && Objects.equals(ime, vraboten.ime);
+    }
+
+    @Override
+    public int hashCode() {
+        return godini*ime.charAt(0);
+    }
+
+    @Override
+    public int compareTo(Vraboten o) {
+        return 0;
+    }
+}
+class Proekt{
+    private int rabotnoVreme;
+    private int plataPoCas;
+    public Proekt(int rabotnoVreme,int plataPoCas){
+        this.rabotnoVreme=rabotnoVreme;
+        this.plataPoCas=plataPoCas;
+    }
+    @Override
+    public String toString() {
+        return "<" + plataPoCas + "," + rabotnoVreme +">";
+    }
+    public int getPlata(){
+        return plataPoCas*rabotnoVreme;
+    }
+
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int N=Integer.parseInt(scanner.nextLine().trim());
+        CBHT<Vraboten,Proekt> tabela=new CBHT<>(10);
+        for(int i=0;i<N;i++){// Во наредните N реда се дадени корисничките имиња и лозинки разделени со едно празно место
+            String [] delovi=scanner.nextLine().split(" ");
+            String ime=delovi[0];
+            int godini=Integer.parseInt(delovi[1]);
+            int vreme=Integer.parseInt(delovi[2]);
+            int platapocas=Integer.parseInt(delovi[3]);
+            Vraboten vraboten=new Vraboten(ime,godini);
+            Proekt proekt=new Proekt(platapocas,vreme);
+
+
+            SLLNode<MapEntry<Vraboten,Proekt>> result=tabela.search(vraboten);
+            if(result==null || result.element.value.getPlata()<proekt.getPlata()) {
+                tabela.insert(vraboten,proekt);
+
+            }
+        }
+        System.out.println(tabela);
+      }
+}
